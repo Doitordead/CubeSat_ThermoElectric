@@ -36,8 +36,8 @@ function coe = tle_to_coe(tle, varargin)
 %     .name, .norad_id              : recopies depuis tle
 
 p = inputParser;
-addParameter(p, 'mu', 398600);    % km^3/s^2
-addParameter(p, 'R_E', 6378);     % km
+addParameter(p, 'mu', 398600);                 % km^3/s^2
+addParameter(p, 'R_E', 6378);                  % km
 parse(p, varargin{:});
 mu  = p.Results.mu;
 
@@ -45,16 +45,16 @@ line1 = tle.line1;
 line2 = tle.line2;
 
 % --- Elements orbitaux (colonnes fixes du TLE) ----------------------------
-i_deg      = str2double(line2(9:16));
-Omega_deg  = str2double(line2(18:25));
-e          = str2double(['0.' line2(27:33)]);
-omega_deg  = str2double(line2(35:42));
-M_deg      = str2double(line2(44:51));
-n_rev_day  = str2double(line2(53:63));
+i_deg      = str2double(line2(9:16));           % inclinaison en deg
+Omega_deg  = str2double(line2(18:25));          % RAAN en deg
+e          = str2double(['0.' line2(27:33)]);   % excentricité
+omega_deg  = str2double(line2(35:42));          % argument du perigée en deg
+M_deg      = str2double(line2(44:51));          % anomalie moyenne 
+n_rev_day  = str2double(line2(53:63));          % mouvement moyenne
 
-n = n_rev_day * 2*pi / 86400;          % mouvement moyen [rad/s]
-a = (mu / n^2)^(1/3);                  % 3e loi de Kepler
-h0 = sqrt(a * mu * (1 - e^2));         % moment cinetique specifique
+n = n_rev_day * 2*pi / 86400;                   % mouvement moyen [rad/s]
+a = (mu / n^2)^(1/3);                           % demi-grand axe [km] 3e loi de Kepler
+h0 = sqrt(a * mu * (1 - e^2));                  % moment cinetique specifique l'epoque [km^2/s]
 
 coe.i     = deg2rad(i_deg);
 coe.Omega = deg2rad(Omega_deg);
@@ -65,8 +65,8 @@ coe.n     = n;
 coe.a     = a;
 coe.h0    = h0;
 coe.T_orb = 2*pi / n;
-coe.mu    = mu;             % stocke pour reutilisation par propagate_orbit.m
-coe.R_E   = p.Results.R_E;  % idem (non utilise dans ce fichier, transmis tel quel)
+coe.mu    = mu;                                 % stocke pour reutilisation par propagate_orbit.m
+coe.R_E   = p.Results.R_E;                      % idem (non utilise dans ce fichier, transmis tel quel)
 
 % --- Anomalie vraie a l'epoque (equation de Kepler, Newton-Raphson) -------
 E = coe.M0;
