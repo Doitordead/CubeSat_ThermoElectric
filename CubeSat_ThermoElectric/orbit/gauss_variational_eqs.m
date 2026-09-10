@@ -24,7 +24,7 @@ function dc = gauss_variational_eqs(~, c, mu, R_E, J2)
 h     = c(1);
 e     = c(2);
 theta = c(3);
-% Omega = c(4);  % n'intervient pas dans Eq.19a-f elles-memes (juste
+Omega = c(4);  % n'intervient pas dans Eq.19a-f elles-memes (juste
                   % transporte pour completer le vecteur d'etat integre,
                   % utilise ensuite pour la transformation perifocal->ECI)
 i     = c(5);
