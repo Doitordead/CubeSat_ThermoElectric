@@ -1,31 +1,6 @@
 function tle = fetch_tle(norad_id, cache_dir)
 %FETCH_TLE  Recupere le TLE (Two-Line Element) d'un satellite depuis
 %   CelesTrak, avec mise en cache locale (un fichier par jour).
-%
-%   tle = FETCH_TLE(norad_id)
-%   tle = FETCH_TLE(norad_id, cache_dir)
-%
-%   ENTREES
-%     norad_id  : identifiant NORAD du satellite (ex: 69920 pour MARINA)
-%     cache_dir : dossier de cache (defaut : data/tle_cache/, relatif a
-%                 la racine du projet)
-%
-%   SORTIE (struct tle)
-%     .name      : nom du satellite (ligne 0 du TLE)
-%     .line1     : ligne 1 du TLE (epoque, derivees...)
-%     .line2     : ligne 2 du TLE (elements orbitaux)
-%     .norad_id  : identifiant NORAD
-%     .fetched   : date de recuperation (AAAAMMJJ)
-%
-%   SOURCE : CelesTrak, requete GP standard.
-%     https://celestrak.org/NORAD/elements/gp.php?CATNR=<id>&FORMAT=tle
-%   Documentation du format de requete : "How to Perform GP Queries",
-%   T.S. Kelso, CelesTrak.
-%
-%   NOTE SUR LE CACHE : CelesTrak demande de ne pas interroger ses
-%   donnees plus de quelques fois par jour (bonne conduite, pas une
-%   limite technique). Le cache local evite tout telechargement repete
-%   inutile au sein d'une meme journee.
 
 if nargin < 2
     % Racine de projet = 2 niveaux au-dessus de ce fichier (orbit/..)
