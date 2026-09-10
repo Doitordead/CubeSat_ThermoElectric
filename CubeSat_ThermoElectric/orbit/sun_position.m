@@ -33,7 +33,7 @@ epsil = deg2rad(23.439 - 3.56e-7*nd);
 u_sun = [cos(lambda); cos(epsil).*sin(lambda); sin(epsil).*sin(lambda)];
 
 % --- Eq.21h-i : distance et vecteur Soleil complet --------------------------------
-AU = 149597870.691;   % unite astronomique [km]
+AU = 149597870.691;    % unite astronomique [km]
 r_sun_mag = (1.00014 - 0.01671*cos(Ms) - 0.000140*cos(2*Ms)) * AU;
 r_sun = r_sun_mag .* u_sun;
 
