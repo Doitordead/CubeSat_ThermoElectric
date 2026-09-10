@@ -43,7 +43,7 @@ mu = p.Results.mu; R_E = p.Results.R_E; J2 = p.Results.J2;
 % --- Etat initial : c = [h, e, theta, Omega, i, omega] --------------------
 c0 = [coe.h0; coe.e; coe.theta0; coe.Omega; coe.i; coe.omega];
 
-opts = odeset('RelTol', p.Results.RelTol, 'AbsTol', p.Results.AbsTol);
+opts = odeset('RelTol', p.Results.RelTol, 'AbsTol', p.Results.AbsTol); %option
 [t_out, c_out] = ode45(@(t,c) gauss_variational_eqs(t, c, mu, R_E, J2), ...
                         tspan, c0, opts);
 
